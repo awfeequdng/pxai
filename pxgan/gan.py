@@ -86,7 +86,7 @@ G_loss = []
 
 train = False
 
-max_epoch = 5
+max_epoch = 100
 model_path = f"./model/{max_epoch}"
 if os.path.exists(model_path) == False:
     os.makedirs(model_path, 0o777)
@@ -136,7 +136,7 @@ if train:
             if epoch == max_epoch:
                 torch.save(gen.state_dict(), model_path)
 else:
-    gen.load_state_dict(torch.load(model_path))
+    gen.load_state_dict(torch.load(model_path, map_location=device))
     gen.eval()
 
 
