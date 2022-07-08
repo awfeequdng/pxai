@@ -8,6 +8,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import torchvision
 from torchvision import transforms
+import os
+import sys
 
 print(torch.__version__)
 
@@ -85,6 +87,9 @@ G_loss = []
 train = True
 
 max_epoch = 10
+model_path = f"./model/{max_epoch}/gen_model"
+if os.path.exists(model_path) == False:
+    os.makedirs(model_path, 0o777)
 
 if train:
     for epoch in range(max_epoch + 1):
@@ -128,8 +133,8 @@ if train:
             print(f'epoch: {epoch}')
             # gen_img_plot(gen, epoch, test_input)
             if epoch == max_epoch:
-                torch.save(gen, f"./model/{max_epoch}/gen_model")
+                torch.save(gen, model_path)
 else:
-    gen.load_state_dict(f"./model/{max_epoch}/gen_model")
+    gen.load_state_dict(model_path)
 
 gen_img_plot(gen, max_epoch, test_input)
