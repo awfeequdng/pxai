@@ -84,7 +84,7 @@ test_input = torch.randn(16, 100, device=device)
 D_loss = []
 G_loss = []
 
-train = True
+train = False
 
 max_epoch = 5
 model_path = f"./model/{max_epoch}"
@@ -134,8 +134,10 @@ if train:
             print(f'epoch: {epoch}')
             # gen_img_plot(gen, epoch, test_input)
             if epoch == max_epoch:
-                torch.save(gen, model_path)
+                torch.save(gen.state_dict(), model_path)
 else:
-    gen.load_state_dict(model_path)
+    gen.load_state_dict(torch.load(model_path))
+    gen.eval()
+
 
 gen_img_plot(gen, max_epoch, test_input)
