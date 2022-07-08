@@ -86,11 +86,12 @@ G_loss = []
 
 train = True
 
-max_epoch = 10
-model_path = f"./model/{max_epoch}/gen_model"
+max_epoch = 5
+model_path = f"./model/{max_epoch}"
 if os.path.exists(model_path) == False:
     os.makedirs(model_path, 0o777)
 
+model_path += "/gen_model"
 if train:
     for epoch in range(max_epoch + 1):
         d_epoch_loss = 0
